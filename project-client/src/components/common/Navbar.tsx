@@ -1,5 +1,5 @@
-function Home() {
+function Navbar() {
   return <div className="w-full"></div>;
 }
 
-export default Home;
+export default Navbar;
