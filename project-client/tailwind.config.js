@@ -7,6 +7,12 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      fontFamily: {
+        gopherBold: ["gopherBold"],
+        gopherRegular: ["gopherRegular"],
+        hnLight: ["hnLight"],
+        hnRoman: ["hnRoman"],
+      },
       animation: {
         aurora: "aurora 60s linear infinite",
       },
