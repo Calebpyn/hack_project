@@ -1,3 +1,31 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: "gopherBold";
+  src: local("fonnts.com-Gopher_Bold"),
+  url('/fonts/Gopher/fonnts.com-Gopher_Bold.otf') format("truetype");
+}
+
+@font-face {
+  font-family: "gopherRegular";
+  src: local("fonnts.com-Gopher_Regular.otf"),
+  url('/fonts/Gopher/fonnts.com-Gopher_Regular.otf') format("truetype");
+}
+
+@font-face {
+  font-family: "hnLight";
+  src: local("HelveticaNeueLight.otf"),
+  url('/fonts/HelveticaNeue/HelveticaNeueLight.otf') format("truetype");
+}
+
+@font-face {
+  font-family: "hnRoman";
+  src: local("HelveticaNeueRoman.otf"),
+  url('/fonts/HelveticaNeue/HelveticaNeueRoman.otf') format("truetype");
+}
+
+.tr {
+  transition: all ease .3s;
+}
