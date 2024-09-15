@@ -4,6 +4,9 @@ import { AuroraBackground } from "./components/ui/aurora-background";
 import Navbar from "./components/common/Navbar";
 import { useEffect, useRef, useState } from "react";
 import Startup_Page from "./components/pages/Startup_Page";
+import Signin from "./components/pages/Signin";
+import Signin_Page from "./components/pages/Signin_page";
+
 
 import Explore from "./components/pages/Explore";
 import CompHome from "./components/pages/CompHome";
@@ -74,6 +77,8 @@ function App() {
               <Route path="/explore" element={<Explore />} />
               <Route path="/comp_home" element={<CompHome />} />
               <Route path="/comp_engine" element={<CompMain />} />
+              <Route path="/signin" element={<Signin />} />
+              <Route path="/form" element={<Signin_Page />} />
             </Routes>
           </div>
         }

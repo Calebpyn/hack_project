@@ -45,8 +45,8 @@ function Startup_Page({ startupId }: { startupId: number }) {
       </div>
 
       {/* Texto de misión fuera de la franja negra */}
-      <div className="w-full py-5 flex items-center justify-center">
-        <div className="w-[80%] text-white text-center">
+      <div className="w-full py-5 flex flex-col items-center">
+        <div className="w-[80%] text-white text-center mb-5">
           <p className="mt-2 text-2xl mb-5">
             <strong>Name:</strong> {startupData.name}
           </p>
@@ -56,6 +56,11 @@ function Startup_Page({ startupId }: { startupId: number }) {
           <p className="mt-2 text-2xl mb-5">
             <strong>Mission:</strong> {startupData.research_develop}
           </p>
+        </div>
+        <div className="w-full flex justify-center mt-5">
+          <button className="bg-white text-black py-4 px-8 rounded-lg hover:bg-black hover:text-white text-4xl">
+            Invest
+          </button>
         </div>
       </div>
     </div>

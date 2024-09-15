@@ -11,7 +11,7 @@ function Section2() {
         <div className="bg-black bg-opacity-50 backdrop-blur-lg text-white flex flex-col justify-between h-[400px] w-[300px] p-5 rounded-[10px]">
           <span className="font-hnRoman">About Us:</span>
           <span className="font-hnLight">
-            We created [Software Name] to bridge the gap between investors and
+            We created StartupSphere to bridge the gap between investors and
             innovative startups. Our platform provides an in-depth analysis of
             companies so you can invest with confidence, knowing that you have
             the best data at your fingertips. Whether you’re an experienced
