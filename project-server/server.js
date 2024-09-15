@@ -66,7 +66,7 @@ app.post("/compare", async (req, res) => {
     }
 
     const prompt =
-      "Startup 1 roi: " +
+      "Context: WE ARE USING YOUR SERVCES TO DETERMINE WHICH STARTUP IS BETTER, YOU HAVE TO DECIDE, GIVE A BREIF EXPLANATION OF 'WHY IS BETTER', BUT ENTIRELY MAKING A CHOICE BETWEEN THE 2 STARTUPS. Startup 1 roi: " +
       JSON.stringify(data1.roi) +
       "market share: " +
       JSON.stringify(data1.market_share) +
