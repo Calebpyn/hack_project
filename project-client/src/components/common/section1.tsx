@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import InfoCard from "./InfoCard";  // Asegúrate de que la ruta sea la correcta
+import InfoCard from "./InfoCard"; // Asegúrate de que la ruta sea la correcta
 
 interface Startup {
   id: number;
@@ -67,6 +67,7 @@ const Section1: React.FC = () => {
           num_investors={startup.num_investors}
           market_share={startup.market_share}
           description={startup.description}
+          id={0}
         />
       ))}
     </div>

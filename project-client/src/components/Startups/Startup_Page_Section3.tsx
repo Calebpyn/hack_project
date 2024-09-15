@@ -1,7 +1,10 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from "react";
 
-function Startup_Page_Section3({ startupId }: { startupId: number }) {  // Recibe startupId como prop
-  const [activeTab, setActiveTab] = useState<null | 'Expansion Plan' | 'Key Metrics' | 'Founding Team'>(null);
+function Startup_Page_Section3({ startupId }: { startupId: number }) {
+  // Recibe startupId como prop
+  const [activeTab, setActiveTab] = useState<
+    null | "Expansion Plan" | "Key Metrics" | "Founding Team"
+  >(null);
   const [startupData, setStartupData] = useState<any>(null); // Estado para almacenar los datos del startup
   const [employerData, setEmployerData] = useState<any>(null); // Estado para almacenar los datos del employer
   const [loading, setLoading] = useState<boolean>(true); // Estado de carga
@@ -10,14 +13,17 @@ function Startup_Page_Section3({ startupId }: { startupId: number }) {  // Recib
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (buttonAreaRef.current && !buttonAreaRef.current.contains(event.target as Node)) {
+      if (
+        buttonAreaRef.current &&
+        !buttonAreaRef.current.contains(event.target as Node)
+      ) {
         setActiveTab(null); // Reiniciar la pestaña activa al hacer clic fuera
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
 
@@ -25,11 +31,15 @@ function Startup_Page_Section3({ startupId }: { startupId: number }) {  // Recib
   const fetchData = async () => {
     try {
       // Obtener datos del startup
-      const response = await fetch(`https://hack-project.onrender.com/startups/${startupId}`);
+      const response = await fetch(
+        `https://hack-project.onrender.com/startups/${startupId}`
+      );
       const startupData = await response.json();
-      
+
       // Obtener datos del employer según el ID del startup
-      const response2 = await fetch(`https://hack-project.onrender.com/employers/${startupId}`);
+      const response2 = await fetch(
+        `https://hack-project.onrender.com/employers/${startupId}`
+      );
       const employerData = await response2.json();
 
       // Guardar los datos obtenidos en los respectivos estados
@@ -51,7 +61,7 @@ function Startup_Page_Section3({ startupId }: { startupId: number }) {  // Recib
     if (!activeTab || !startupData || !employerData) return null;
 
     switch (activeTab) {
-      case 'Expansion Plan':
+      case "Expansion Plan":
         return (
           <div>
             <p className="text-2xl mb-5">
@@ -61,11 +71,12 @@ function Startup_Page_Section3({ startupId }: { startupId: number }) {  // Recib
               <strong>Future Expansion:</strong> {startupData.futureExpansion}
             </p>
             <p className="text-2xl mb-5">
-              <strong>Technological Innovation:</strong> {startupData.technologicalInnovation}
+              <strong>Technological Innovation:</strong>{" "}
+              {startupData.technologicalInnovation}
             </p>
           </div>
         );
-      case 'Key Metrics':
+      case "Key Metrics":
         return (
           <div>
             <p className="text-2xl mb-5">
@@ -82,7 +93,7 @@ function Startup_Page_Section3({ startupId }: { startupId: number }) {  // Recib
             </p>
           </div>
         );
-      case 'Founding Team':
+      case "Founding Team":
         return (
           <div>
             <p className="text-2xl mb-5">
@@ -107,28 +118,37 @@ function Startup_Page_Section3({ startupId }: { startupId: number }) {  // Recib
       <div className="grid grid-cols-3 gap-10 mb-10">
         <div className="col-span-3">
           {/* Área de botones */}
-          <div className="flex space-x-4 mb-5 flex items-center justify-center" ref={buttonAreaRef}>
+          <div
+            className="flex space-x-4 mb-5 items-center justify-center"
+            ref={buttonAreaRef}
+          >
             <button
               className={`px-10 py-2 rounded-full flex items-center justify-center ${
-                activeTab === 'Expansion Plan' ? 'bg-white text-black' : 'border border-white text-white hover:bg-white hover:text-black'
+                activeTab === "Expansion Plan"
+                  ? "bg-white text-black"
+                  : "border border-white text-white hover:bg-white hover:text-black"
               }`}
-              onClick={() => setActiveTab('Expansion Plan')}
+              onClick={() => setActiveTab("Expansion Plan")}
             >
               <h2 className="text-2xl mb-3">Expansion Plan</h2>
             </button>
             <button
               className={`px-4 py-2 rounded-full flex items-center justify-center ${
-                activeTab === 'Key Metrics' ? 'bg-white text-black' : 'border border-white text-white hover:bg-white hover:text-black'
+                activeTab === "Key Metrics"
+                  ? "bg-white text-black"
+                  : "border border-white text-white hover:bg-white hover:text-black"
               }`}
-              onClick={() => setActiveTab('Key Metrics')}
+              onClick={() => setActiveTab("Key Metrics")}
             >
               <h2 className="text-2xl mb-3">Key Metrics</h2>
             </button>
             <button
               className={`px-4 py-2 rounded-full flex items-center justify-center ${
-                activeTab === 'Founding Team' ? 'bg-white text-black' : 'border border-white text-white hover:bg-white hover:text-black'
+                activeTab === "Founding Team"
+                  ? "bg-white text-black"
+                  : "border border-white text-white hover:bg-white hover:text-black"
               }`}
-              onClick={() => setActiveTab('Founding Team')}
+              onClick={() => setActiveTab("Founding Team")}
             >
               <h2 className="text-2xl mb-3">Founding Team</h2>
             </button>
