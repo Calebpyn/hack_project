@@ -4,6 +4,7 @@ import logo from "../../assets/home/logo.svg";
 import { useEffect, useState } from "react";
 import { CiCircleInfo } from "react-icons/ci";
 import { set } from "cypress/types/lodash";
+import { useNavigate } from "react-router-dom";
 
 function CompMain() {
   const [result, setResult] = useState(0);
@@ -43,6 +44,19 @@ function CompMain() {
 
   const handleCompare = async () => {
     try {
+      let dummy = {
+        id1: dummies[left].id,
+        id2: dummies[right].id,
+      };
+      const res = await fetch("https://hack-project.onrender.com/compare", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(dummy),
+      });
+
+      const data = await res.json();
+
+      console.log(data);
     } catch (err) {
       console.log(err);
     }
@@ -55,6 +69,8 @@ function CompMain() {
   const [left, setLeft] = useState(0);
   const [right, setRight] = useState(0);
 
+  const navigate = useNavigate();
+
   return (
     <div className="w-full h-[700px] p-10 flex justify-center items-end select-none">
       <div className="w-full h-full flex justify-between items-end">
@@ -64,7 +80,10 @@ function CompMain() {
           }`}
         >
           <span className="flex justify-end items-center p-5">
-            <span className="text-white flex items-center gap-5 font-hnLight hover:scale-105 tr select-none cursor-pointer">
+            <span
+              className="text-white flex items-center gap-5 font-hnLight hover:scale-105 tr select-none cursor-pointer"
+              onClick={() => navigate(`/startup_page/${dummies[left].id}`)}
+            >
               <span>More Info</span>
               <FaArrowRightLong />
             </span>
@@ -164,7 +183,10 @@ function CompMain() {
           }`}
         >
           <span className="flex justify-end items-center p-5">
-            <span className="text-white flex items-center gap-5 font-hnLight hover:scale-105 tr select-none cursor-pointer">
+            <span
+              className="text-white flex items-center gap-5 font-hnLight hover:scale-105 tr select-none cursor-pointer"
+              onClick={() => navigate(`/startup_page/${dummies[right].id}`)}
+            >
               <span>More Info</span>
               <FaArrowRightLong />
             </span>

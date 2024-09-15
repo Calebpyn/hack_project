@@ -3,6 +3,7 @@ import { SlMagnifier } from "react-icons/sl";
 import InfoCard from "../common/InfoCard";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import CircularProgress from "@mui/material/CircularProgress";
 
 function Section1() {
   const { pathname } = useLocation();
@@ -90,7 +91,11 @@ function Section1() {
   };
 
   if (loading) {
-    return <div className="h-[650px]">Cargando...</div>; // Mostrar estado de carga
+    return (
+      <div className="h-[650px] w-full flex justify-center items-center">
+        <CircularProgress />
+      </div>
+    ); // Mostrar estado de carga
   }
 
   return (

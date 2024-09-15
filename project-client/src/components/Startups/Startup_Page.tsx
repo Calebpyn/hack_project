@@ -8,7 +8,9 @@ function Startup_Page({ startupId }: { startupId: number }) {
   // Función para obtener los datos de la API
   const fetchData = async () => {
     try {
-      const response = await fetch(`https://hack-project.onrender.com/startups/${startupId}`); // Cambia la URL a la de tu API
+      const response = await fetch(
+        `https://hack-project.onrender.com/startups/${startupId}`
+      ); // Cambia la URL a la de tu API
       const data = await response.json();
       setStartupData(data); // Guardar los datos obtenidos en el estado
       setLoading(false); // Finaliza el estado de carga
@@ -37,14 +39,18 @@ function Startup_Page({ startupId }: { startupId: number }) {
       {/* Franja negra con solo el título */}
       <div className="w-full py-5 flex items-center justify-center">
         <div className="w-full p-10 flex justify-center items-center">
-          <img src={startupData.link_logo} alt="Company uber" className="w-100 h-20" />
+          <img
+            src={startupData.link_logo}
+            alt="Company uber"
+            className="w-100 h-20"
+          />
         </div>
       </div>
 
       {/* Texto de misión fuera de la franja negra */}
       <div className="w-full py-5 flex items-center justify-center">
         <div className="w-[80%] text-white text-center">
-        <p className="mt-2 text-2xl mb-5">
+          <p className="mt-2 text-2xl mb-5">
             <strong>Name:</strong> {startupData.name}
           </p>
           <p className="mt-2 text-2xl mb-5">
