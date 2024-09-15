@@ -35,18 +35,13 @@ function Startup_Page2({ startupId }: { startupId: number }) {
       <div className="grid grid-cols-2 gap-10 mb-10">
         {/* Columna 1: Problem it Solves */}
         <div>
-          <h2 className="text-2xl mb-5 font-bold">Problem it solves</h2>
           <p className="text-2xl mb-4">
             <strong>Problem:</strong> {startupData.problem}
-          </p>
-          <p className="text-2xl mb-4">
-            <strong>Solution:</strong> {startupData.solution}
           </p>
         </div>
 
         {/* Columna 2: Value Proposition */}
         <div>
-          <h2 className="text-2xl font-bold mb-5">Value Proposition</h2>
           <p className="text-2xl mb-4">
             <strong>Value Proposition:</strong> {startupData.value_proposition}
           </p>
