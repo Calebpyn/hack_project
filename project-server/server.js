@@ -48,12 +48,12 @@ app.post("/compare", async (req, res) => {
 
     const { data: data1, error: error1 } = await supabase
       .from("startups")
-      .select("roi, market_share, num_investors, raised, minimum_inv")
+      .select("roi, market_share, num_investors, raised, minimum_inv, name, id")
       .eq("id", id1)
       .single();
     const { data: data2, error: error2 } = await supabase
       .from("startups")
-      .select("roi, market_share, num_investors, raised, minimum_inv")
+      .select("roi, market_share, num_investors, raised, minimum_inv, name, id")
       .eq("id", id2)
       .single();
 
