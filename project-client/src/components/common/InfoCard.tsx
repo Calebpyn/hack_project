@@ -54,11 +54,11 @@ const InfoCard: React.FC<InfoCardProps> = ({
             Value Proposition: {value_proposition}
           </span>
           <span className="text-sm">Raised: {raised}</span>
-          <span className="w-full h-[100px] rounded-[10px] mt-3">
+          <span className="w-full h-[100px] rounded-[10px] mt-2">
             <img
               src={link_logo}
               alt="Company Logo"
-              className="w-full h-full object-cover rounded-[10px]"
+              className="w-full h-full object-contain rounded-[10px]"
             />
           </span>
         </span>
