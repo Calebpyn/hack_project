@@ -80,6 +80,15 @@ const Navbar: React.FC<NavbarProps> = ({ bgColor, bgBlur }) => {
             >
               Explore
             </span>
+            <span
+              className="hover:scale-110 tr select-none cursor-pointer hover:tracking-wider"
+              onClick={() => {
+                navigate("/signin");
+                setIsOpen(false);
+              }}
+            >
+              Sign up as a Startup
+            </span>
           </div>
         </div>
 
@@ -91,4 +100,4 @@ const Navbar: React.FC<NavbarProps> = ({ bgColor, bgBlur }) => {
   );
 };
 
-export default Navbar;
+export default Navbar;

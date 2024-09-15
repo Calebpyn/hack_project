@@ -1,6 +1,7 @@
 //Assets
 import logo from "../../assets/home/logo.svg";
 // import { AnimatedTooltip } from "../ui/animated-tooltip";
+import Paypal from "../common/Paypal";
 
 function Section1() {
   // const people = [
@@ -54,6 +55,7 @@ function Section1() {
         </span> */}
       </div>
     </div>
+
   );
 }
 
