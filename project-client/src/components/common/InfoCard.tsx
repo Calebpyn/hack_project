@@ -1,36 +1,67 @@
 import React from "react";
+import { format } from "date-fns";
 
 interface InfoCardProps {
+  key: number;
   name: string;
-  industry: string;
-  founded: number;
-  size: number;
-  revenue: string;
-  img: string;
+  category: string;
+  created_at: number;
+  roi: number;
+  link_logo: string;
+  link_banner: string;
+  research_develop: string;
+  model: string;
+  value_proposition: string;
+  problem: string;
+  rounds: number;
+  minimum_investment: number;
+  raised: number;
+  num_investors: number;
+  market_share: number;
+  description: string;
 }
-
 const InfoCard: React.FC<InfoCardProps> = ({
   name,
-  industry,
-  founded,
-  size,
-  revenue,
-  img,
+  category,
+  created_at,
+  roi,
+  link_logo,
+  link_banner,
+  research_develop,
+  model,
+  value_proposition,
+  problem,
+  rounds,
+  minimum_investment,
+  raised,
+  num_investors,
+  market_share,
+  description,
 }) => {
+  const formattedDate = format(new Date(created_at), "dd MMM yyyy");
+
   return (
     <div className="bg-white bg-opacity-30 backdrop-blur-lg rounded-[10px] h-[350px] w-[300px] p-5 text-white flex flex-col justify-between items-start hover:scale-105 tr cursor-pointer">
       <span className="text-xl font-hnRoman">{name}</span>
       <div className="w-full">
         <span className="flex flex-col font-hnLight text-sm">
-          <span>Industry: {industry}</span>
-          <span>Founded: {founded}</span>
-          <span>Size: {size} Employees</span>
-          <span>Revenue: ${revenue}</span>
+          <span className="text-sm">Name: {name}</span>
+          <span className="text-sm">Category: {category}</span>
+          <span className="text-sm">Created at: {formattedDate}</span>
+          <span className="text-sm">ROI: {roi}</span>
+          <span className="text-sm">Model: {model}</span>
+          <span className="text-sm">
+            Value Proposition: {value_proposition}
+          </span>
+          <span className="text-sm">Raised: {raised}</span>
+          <span className="w-full h-[100px] rounded-[10px] mt-3">
+            <img
+              src={link_logo}
+              alt="Company Logo"
+              className="w-full h-full object-cover rounded-[10px]"
+            />
+          </span>
         </span>
-        <div
-          style={{ backgroundImage: `url(${img})` }}
-          className="w-full h-[100px] rounded-[10px] mt-3"
-        ></div>
       </div>
     </div>
   );

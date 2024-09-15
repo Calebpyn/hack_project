@@ -1,5 +1,4 @@
 import logo from "../../assets/home/logo.svg";
-
 import { SlMagnifier } from "react-icons/sl";
 import InfoCard from "../common/InfoCard";
 import { useEffect, useState } from "react";
@@ -7,128 +6,90 @@ import { useLocation } from "react-router-dom";
 
 function Section1() {
   const { pathname } = useLocation();
+  const [originalData, setOriginalData] = useState<any[]>([]); // Datos originales sin filtrar
+  const [filteredData, setFilteredData] = useState<any[]>([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedFilters, setSelectedFilters] = useState<number[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
-  const [dummies, setDummies] = useState<any[]>([
-    {
-      companyName: "TechNova Solutions",
-      industry: "Technology",
-      founded: 2018,
-      size: 150,
-      revenue: "25M",
-      description:
-        "TechNova Solutions specializes in cutting-edge AI and machine learning technologies. The company focuses on developing innovative software solutions that enhance data analysis and automation for various industries.",
-      keyMetrics: {
-        revenue: "25M",
-        funding: "50M",
-        marketPosition:
-          "TechNova holds a strong position in the AI market, with a growing client base and a reputation for reliability and innovation.",
-      },
-      highlights: [
-        "Awarded 'Best Tech Startup' by TechWorld Magazine (2022)",
-        "Partnerships with leading tech firms like Intel and Microsoft",
-        "Successfully launched three major products in the last year",
-      ],
-      whyInvest:
-        "TechNova Solutions offers a unique combination of cutting-edge technology and strong market presence. With a solid track record of innovation and strategic partnerships, it represents a promising investment opportunity in the rapidly evolving tech industry.",
-      img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAHAe0g1f5ng-92MI1s6prc0NW9ZnRPDlHuQ&s",
-    },
-    {
-      companyName: "GreenWave Energy",
-      industry: "Renewable Energy",
-      founded: 2015,
-      size: 300,
-      revenue: "22M",
-      description:
-        "GreenWave Energy is a leader in sustainable energy solutions, specializing in solar and wind power technologies. The company’s mission is to make clean energy more accessible through affordable, high-efficiency products.",
-      keyMetrics: {
-        revenue: "22M",
-        funding: "70M",
-        marketPosition:
-          "GreenWave is recognized as a top player in the renewable energy sector, with a growing presence in both domestic and international markets.",
-      },
-      highlights: [
-        "Winner of 'Top Innovator in Clean Energy' Award (2021)",
-        "Partnerships with national energy grids in three countries",
-        "Achieved 100% carbon-neutral operations by 2022",
-      ],
-      whyInvest:
-        "GreenWave Energy is at the forefront of the renewable energy movement, offering innovative solutions in a rapidly growing market. With increasing demand for sustainable power and a strong pipeline of projects, GreenWave presents a valuable investment opportunity in the green energy sector.",
-      img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAHAe0g1f5ng-92MI1s6prc0NW9ZnRPDlHuQ&s",
-    },
-    {
-      companyName: "SkyNet Robotics",
-      industry: "Robotics",
-      founded: 2017,
-      size: 200,
-      revenue: "38M",
-      description:
-        "SkyNet Robotics is pioneering the future of automation with cutting-edge robotic systems for industrial applications. Their autonomous solutions increase efficiency and safety across multiple sectors, from manufacturing to logistics.",
-      img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAHAe0g1f5ng-92MI1s6prc0NW9ZnRPDlHuQ&s",
-    },
-    {
-      companyName: "BioFusion Health",
-      industry: "Biotechnology",
-      founded: 2014,
-      size: 250,
-      revenue: "45M",
-      description:
-        "BioFusion Health is a biotech company specializing in gene editing technologies aimed at revolutionizing healthcare treatments. Their focus on cutting-edge research has made them a leader in personalized medicine.",
-      img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAHAe0g1f5ng-92MI1s6prc0NW9ZnRPDlHuQ&s",
-    },
-    {
-      companyName: "NextGen Fintech",
-      industry: "Fintech",
-      founded: 2016,
-      size: 180,
-      revenue: "32M",
-      description:
-        "NextGen Fintech offers innovative digital payment solutions and financial products, helping consumers and businesses streamline transactions. Their secure and scalable platform has rapidly gained market traction.",
-      img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAHAe0g1f5ng-92MI1s6prc0NW9ZnRPDlHuQ&s",
-    },
-    {
-      companyName: "SolarWave Solutions",
-      industry: "Renewable Energy",
-      founded: 2015,
-      size: 120,
-      revenue: "25M",
-      description:
-        "SolarWave Solutions provides affordable, scalable solar energy solutions. They are transforming the renewable energy landscape with high-efficiency solar panels and energy storage systems.",
-      img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAHAe0g1f5ng-92MI1s6prc0NW9ZnRPDlHuQ&s",
-    },
-    {
-      companyName: "EduTrack Innovations",
-      industry: "Education Technology (EdTech)",
-      founded: 2018,
-      size: 100,
-      revenue: "12M",
-      description:
-        "EduTrack Innovations creates cutting-edge digital tools for the education sector. Their platform helps institutions track student progress, improve teaching efficiency, and offer personalized learning experiences.",
-      img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAHAe0g1f5ng-92MI1s6prc0NW9ZnRPDlHuQ&s",
-    },
-  ]);
 
-  const [filteredData, setFilteredData] = useState<any[]>(dummies);
-  const [searchQuery, setSearchQuery] = useState("");
+  // Función para obtener los datos desde la API
+  const fetchData = async () => {
+    try {
+      const response = await fetch("https://hack-project.onrender.com/startups/"); // Reemplaza con la URL de tu API
+      const data = await response.json();
+      setOriginalData(data); // Guardar los datos originales
+      setFilteredData(data); // Inicialmente mostrar todos los datos
+      setLoading(false);
+    } catch (error) {
+      console.error("Error al obtener los datos", error);
+      setLoading(false);
+    }
+  };
 
-  // Function to handle search
-  const handleSearch = (query: string) => {
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  // Función para manejar la búsqueda y filtrado por categorías
+  const handleSearch = (query: string, filters: number[]) => {
     const lowercasedQuery = query.toLowerCase();
-    const newFilteredData = dummies.filter((item) =>
-      item.companyName.toLowerCase().includes(lowercasedQuery)
+    let newFilteredData = originalData.filter((item) =>
+      item.name.toLowerCase().includes(lowercasedQuery)
     );
+
+    // Filtrar por categorías seleccionadas
+    if (filters.length > 0) {
+      const categoryFilters = filters.map((filter) => {
+        switch (filter) {
+          case 1:
+            return "Technology";
+          case 2:
+            return "Health";
+          case 3:
+            return "Environment";
+          case 4:
+            return "E-commerce";
+          case 5:
+            return "Logistics";
+          case 6:
+            return "Education";
+          default:
+            return "";
+        }
+      });
+
+      newFilteredData = newFilteredData.filter((item) =>
+        categoryFilters.includes(item.category)
+      );
+    }
+
     setFilteredData(newFilteredData);
   };
 
-  // Function to handle input change
+  useEffect(() => {
+    handleSearch(searchQuery, selectedFilters);
+  }, [selectedFilters, searchQuery]);
+
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const query = event.target.value;
     setSearchQuery(query);
-    handleSearch(query);
+    handleSearch(query, selectedFilters);
   };
 
-  const [selectedFilters, setSelectedFilters] = useState<number[]>([]);
+  const toggleFilter = (filterId: number) => {
+    const updatedFilters = selectedFilters.includes(filterId)
+      ? selectedFilters.filter((x) => x !== filterId)
+      : [...selectedFilters, filterId];
+    setSelectedFilters(updatedFilters);
+  };
+
+  if (loading) {
+    return <div>Cargando...</div>; // Mostrar estado de carga
+  }
 
   return (
     <div className="w-full flex justify-center items-center p-10">
@@ -140,7 +101,7 @@ function Section1() {
                 <span className="font-gopherBold text-6xl text-white">
                   Explore Startups
                 </span>
-                <img src={logo} className="h-[40px]" />
+                <img src={logo} className="h-[40px]" alt="logo" />
               </span>
               <span className="font-hnLight text-white text-sm mt-5">
                 Compare top startups side by side, with key metrics at your
@@ -153,6 +114,8 @@ function Section1() {
                 <input
                   className="w-full p-3 bg-transparent outline-none"
                   onChange={(e) => handleInputChange(e)}
+                  value={searchQuery}
+                  placeholder="Search Startups"
                 ></input>
                 <SlMagnifier className="hover:scale-110 tr cursor-pointer" />
               </span>
@@ -161,18 +124,29 @@ function Section1() {
           <div className="min-h-[200px] w-full py-5 flex flex-wrap gap-5">
             {filteredData.map((item) => (
               <InfoCard
-                founded={item.founded}
-                img={item.img}
-                industry={item.industry}
-                name={item.companyName}
-                revenue={item.revenue}
-                size={item.size}
+                key={item.id}
+                name={item.name}
+                category={item.category}
+                created_at={item.created_at}
+                roi={item.roi}
+                link_logo={item.link_logo}
+                link_banner={item.link_banner}
+                research_develop={item.research_develop}
+                model={item.model}
+                value_proposition={item.value_proposition}
+                problem={item.problem}
+                rounds={item.rounds}
+                minimum_investment={item.minimum_inv}
+                raised={item.raised}
+                num_investors={item.num_investors}
+                market_share={item.market_share}
+                description={item.description}
               />
             ))}
           </div>
         </div>
         <div className="w-[30%] h-[700px] flex items-center flex-col text-white">
-          <div className="w-[90%] h-full bg-black bg-opacity-35 backdrop-blur-lg rounded-[10px] p-5 font-hnLight">
+          <div className="w-[90%] h-[45%] bg-black bg-opacity-35 backdrop-blur-lg rounded-[10px] p-5 font-hnLight">
             <span className="font-hnLight text-[12px] w-full justify-between flex">
               <span>Categories</span>
               <span
@@ -189,13 +163,7 @@ function Section1() {
                   className={`w-[20px] h-[20px] border-2 border-white rounded-sm tr cursor-pointer ${
                     selectedFilters.includes(1) ? "bg-white" : ""
                   }`}
-                  onClick={() => {
-                    setSelectedFilters((prevFilters) =>
-                      prevFilters.includes(1)
-                        ? prevFilters.filter((x) => x !== 1)
-                        : [...prevFilters, 1]
-                    );
-                  }}
+                  onClick={() => toggleFilter(1)}
                 ></div>
                 <span>Technology</span>
               </span>
@@ -204,73 +172,43 @@ function Section1() {
                   className={`w-[20px] h-[20px] border-2 border-white rounded-sm tr cursor-pointer ${
                     selectedFilters.includes(2) ? "bg-white" : ""
                   }`}
-                  onClick={() => {
-                    setSelectedFilters((prevFilters) =>
-                      prevFilters.includes(2)
-                        ? prevFilters.filter((x) => x !== 2)
-                        : [...prevFilters, 2]
-                    );
-                  }}
+                  onClick={() => toggleFilter(2)}
                 ></div>
-                <span>Healthcare</span>
+                <span>Health</span>
               </span>
               <span className="flex items-center gap-5 justify-start">
                 <div
                   className={`w-[20px] h-[20px] border-2 border-white rounded-sm tr cursor-pointer ${
                     selectedFilters.includes(3) ? "bg-white" : ""
                   }`}
-                  onClick={() => {
-                    setSelectedFilters((prevFilters) =>
-                      prevFilters.includes(3)
-                        ? prevFilters.filter((x) => x !== 3)
-                        : [...prevFilters, 3]
-                    );
-                  }}
+                  onClick={() => toggleFilter(3)}
                 ></div>
-                <span>Fintech</span>
+                <span>Environment</span>
               </span>
               <span className="flex items-center gap-5 justify-start">
                 <div
                   className={`w-[20px] h-[20px] border-2 border-white rounded-sm tr cursor-pointer ${
                     selectedFilters.includes(4) ? "bg-white" : ""
                   }`}
-                  onClick={() => {
-                    setSelectedFilters((prevFilters) =>
-                      prevFilters.includes(4)
-                        ? prevFilters.filter((x) => x !== 4)
-                        : [...prevFilters, 4]
-                    );
-                  }}
+                  onClick={() => toggleFilter(4)}
                 ></div>
-                <span>E-Commerce</span>
+                <span>E-commerce</span>
               </span>
               <span className="flex items-center gap-5 justify-start">
                 <div
                   className={`w-[20px] h-[20px] border-2 border-white rounded-sm tr cursor-pointer ${
                     selectedFilters.includes(5) ? "bg-white" : ""
                   }`}
-                  onClick={() => {
-                    setSelectedFilters((prevFilters) =>
-                      prevFilters.includes(5)
-                        ? prevFilters.filter((x) => x !== 5)
-                        : [...prevFilters, 5]
-                    );
-                  }}
+                  onClick={() => toggleFilter(5)}
                 ></div>
-                <span>Renewable Energy</span>
+                <span>Logistics</span>
               </span>
               <span className="flex items-center gap-5 justify-start">
                 <div
                   className={`w-[20px] h-[20px] border-2 border-white rounded-sm tr cursor-pointer ${
                     selectedFilters.includes(6) ? "bg-white" : ""
                   }`}
-                  onClick={() => {
-                    setSelectedFilters((prevFilters) =>
-                      prevFilters.includes(6)
-                        ? prevFilters.filter((x) => x !== 6)
-                        : [...prevFilters, 6]
-                    );
-                  }}
+                  onClick={() => toggleFilter(6)}
                 ></div>
                 <span>Education</span>
               </span>
