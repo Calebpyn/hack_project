@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 function Startup_Page2({ startupId }: { startupId: number }) {
   const [startupData, setStartupData] = useState<any>(null); // Estado para almacenar los datos del startup
@@ -7,9 +7,7 @@ function Startup_Page2({ startupId }: { startupId: number }) {
   // Función para obtener los datos de la API
   const fetchData = async () => {
     try {
-      const response = await fetch(
-        `https://hack-project.onrender.com/startups/1`
-      ); // Cambia la URL a la de tu API
+      const response = await fetch(`https://hack-project.onrender.com/startups/1`); // Cambia la URL a la de tu API
       const data = await response.json();
       setStartupData(data); // Guardar los datos obtenidos en el estado
       setLoading(false); // Finaliza el estado de carga
@@ -37,31 +35,31 @@ function Startup_Page2({ startupId }: { startupId: number }) {
       <div className="grid grid-cols-2 gap-10 mb-10">
         {/* Columna 1: Problem it Solves */}
         <div>
+         
           <p className="text-2xl mb-4">
             <strong>Problem:</strong> {startupData.problem}
           </p>
+          <p className="text-2xl mb-4">
+            <strong>Business Model:</strong> {startupData.model}
+            </p>
         </div>
 
         {/* Columna 2: Value Proposition */}
         <div>
+          
           <p className="text-2xl mb-4">
             <strong>Value Proposition:</strong> {startupData.value_proposition}
           </p>
           <p className="text-2xl mb-4">
-            <strong>Research & Development:</strong>{" "}
-            {startupData.research_develop}
+            <strong>Research & Development:</strong> {startupData.research_develop}
           </p>
         </div>
       </div>
 
       {/* Sección completa: Business Model */}
       <div className="w-full">
-        <h2 className="text-2xl font-bold mb-5">Business Model</h2>
-        <ul className="list-disc list-inside text-2xl mb-4">
-          <li>
-            <strong>Business Model:</strong> {startupData.model}
-          </li>
-        </ul>
+        
+       
       </div>
     </div>
   );
