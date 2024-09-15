@@ -9,8 +9,7 @@ function Section1() {
       </div>
       <div>
         <span className="text-6xl tracking-wide text-white font-gopherBold">
-          Compare. <span className="text-[#570AAF]">Analyze.</span> Invest
-          Smarter.
+          Compare. <span className="text-[#570AAF]">Analyze.</span> Invest.
         </span>
       </div>
       <div className="w-[60%] py-5 text-white font-hnLight text-xl">
