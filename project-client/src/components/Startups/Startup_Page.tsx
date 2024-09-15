@@ -1,5 +1,4 @@
-import uber from "../../assets/home/uber1.svg";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 function Startup_Page({ startupId }: { startupId: number }) {
   const [startupData, setStartupData] = useState<any>(null); // Estado para almacenar los datos del startup
@@ -38,13 +37,12 @@ function Startup_Page({ startupId }: { startupId: number }) {
 
       {/* Franja negra con solo el título */}
       <div className="w-full py-5 flex items-center justify-center">
-          <img
-            src={startupData.link_logo}
-            alt="Company logo"
-            className="w-48 h-48 object-contain rounded-full shadow-lg"
-          />
+        <img
+          src={startupData.link_logo}
+          alt="Company logo"
+          className="w-48 h-48 object-contain rounded-full shadow-lg"
+        />
       </div>
-
 
       {/* Texto de misión fuera de la franja negra */}
       <div className="w-full py-5 flex items-center justify-center">

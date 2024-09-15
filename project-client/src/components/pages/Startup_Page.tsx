@@ -1,4 +1,3 @@
-import React from "react";
 import Startup_Page from "../Startups/Startup_Page";
 import Startup_Page_Section2 from "../Startups/Startup_Page_Section2";
 import Startup_Page_Section3 from "../Startups/Startup_Page_Section3";

@@ -3,7 +3,7 @@ import { FaArrowLeftLong } from "react-icons/fa6";
 import logo from "../../assets/home/logo.svg";
 import { useEffect, useState } from "react";
 import { CiCircleInfo } from "react-icons/ci";
-import { set } from "cypress/types/lodash";
+
 import { useNavigate } from "react-router-dom";
 
 function CompMain() {
@@ -42,6 +42,11 @@ function CompMain() {
     }
   };
 
+  const [left, setLeft] = useState(0);
+  const [right, setRight] = useState(0);
+
+  const [resultInfo, setResultInfo] = useState("");
+
   const handleCompare = async () => {
     try {
       let dummy = {
@@ -56,7 +61,28 @@ function CompMain() {
 
       const data = await res.json();
 
-      console.log(data);
+      if (data) {
+        const startIndex = data.message.indexOf("{$");
+        const endIndex = data.message.indexOf("$}", startIndex);
+
+        // Extract the number if found
+        if (startIndex !== -1 && endIndex !== -1) {
+          const numberString = data.message.slice(startIndex + 2, endIndex); // Get the part between {$ and $}
+          const number = parseInt(numberString); // Convert it to an integer
+          if (number == dummies[left].id) {
+            setResult(1);
+          } else if (number == dummies[right].id) {
+            setResult(2);
+          } else {
+            alert("GG PONGASE A CHAMBEAR");
+          }
+          setResultInfo(
+            data.message.slice(0, startIndex) + data.message.slice(endIndex + 2)
+          );
+        } else {
+          console.log("No {$ $} pattern found");
+        }
+      }
     } catch (err) {
       console.log(err);
     }
@@ -65,9 +91,6 @@ function CompMain() {
   useEffect(() => {
     handleAllStartUps();
   }, []);
-
-  const [left, setLeft] = useState(0);
-  const [right, setRight] = useState(0);
 
   const navigate = useNavigate();
 
@@ -90,7 +113,13 @@ function CompMain() {
           </span>
           <div className="bg-black bg-opacity-40 backdrop-blur-lg w-full h-[85%] rounded-[10px]">
             {result == 1 ? (
-              <div></div>
+              <div className="p-10 text-white flex flex-col gap-5">
+                <span className="font-gopherBold text-3xl">
+                  {dummies[left].name}
+                </span>
+
+                <span className="font-hnLight">{resultInfo}</span>
+              </div>
             ) : (
               <div className="text-white flex flex-col gap-10 px-10 py-5 overflow-y-auto">
                 <span className="font-gopherBold text-xl">
@@ -147,10 +176,10 @@ function CompMain() {
           <div
             className="hover:scale-110 tr cursor-pointer text-white flex flex-col items-center gap-5"
             onClick={() => {
-              if (result != 0) {
-                setResult(0);
+              if (result == 0) {
+                handleCompare();
               } else {
-                setResult(1);
+                setResult(0);
               }
             }}
           >
@@ -192,8 +221,14 @@ function CompMain() {
             </span>
           </span>
           <div className="bg-black bg-opacity-40 backdrop-blur-lg w-full h-[85%] rounded-[10px]">
-            {result == 1 ? (
-              <div></div>
+            {result == 2 ? (
+              <div className="p-10 text-white flex flex-col gap-5">
+                <span className="font-gopherBold text-3xl">
+                  {dummies[left].name}
+                </span>
+
+                <span className="font-hnLight">{resultInfo}</span>
+              </div>
             ) : (
               <div className="text-white flex flex-col gap-10 px-10 py-5 overflow-y-auto">
                 <span className="font-gopherBold text-xl">

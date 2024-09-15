@@ -1,4 +1,4 @@
-import { HashRouter, Route, Routes, useLocation } from "react-router-dom";
+import { HashRouter, Route, Routes } from "react-router-dom";
 import Home from "./components/pages/Home";
 import { AuroraBackground } from "./components/ui/aurora-background";
 import Navbar from "./components/common/Navbar";
