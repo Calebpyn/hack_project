@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 function Startup_Page2({ startupId }: { startupId: number }) {
   const [startupData, setStartupData] = useState<any>(null); // Estado para almacenar los datos del startup
@@ -7,7 +7,9 @@ function Startup_Page2({ startupId }: { startupId: number }) {
   // Función para obtener los datos de la API
   const fetchData = async () => {
     try {
-      const response = await fetch(`https://hack-project.onrender.com/startups/1`); // Cambia la URL a la de tu API
+      const response = await fetch(
+        `https://hack-project.onrender.com/startups/1`
+      ); // Cambia la URL a la de tu API
       const data = await response.json();
       setStartupData(data); // Guardar los datos obtenidos en el estado
       setLoading(false); // Finaliza el estado de carga
@@ -46,7 +48,8 @@ function Startup_Page2({ startupId }: { startupId: number }) {
             <strong>Value Proposition:</strong> {startupData.value_proposition}
           </p>
           <p className="text-2xl mb-4">
-            <strong>Research & Development:</strong> {startupData.research_develop}
+            <strong>Research & Development:</strong>{" "}
+            {startupData.research_develop}
           </p>
         </div>
       </div>
