@@ -86,8 +86,11 @@ function CompMain() {
                   <span>Roi: %{dummies[left].roi}</span>
                 </span>
                 <span className="w-full bg-white h-[1px]"></span>
-                <div className="h-[120px] w-full overflow-clip flex justify-center items-center">
-                  <img src={dummies[left].link_logo} />
+                <div className="h-[120px] w-full overflow-clip flex justify-center items-center object-contain">
+                  <img
+                    src={dummies[left].link_logo}
+                    className="object-contain w-full h-full"
+                  />
                 </div>
               </div>
             )}
@@ -183,8 +186,11 @@ function CompMain() {
                   <span>Roi: %{dummies[right].roi}</span>
                 </span>
                 <span className="w-full bg-white h-[1px]"></span>
-                <div className="h-[120px] w-full overflow-clip flex justify-center items-center">
-                  <img src={dummies[right].link_logo} />
+                <div className="h-[120px] w-full overflow-clip flex justify-center items-center object-contain">
+                  <img
+                    src={dummies[right].link_logo}
+                    className="object-contain w-full h-full"
+                  />
                 </div>
               </div>
             )}
