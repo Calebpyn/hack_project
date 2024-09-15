@@ -19,7 +19,9 @@ function Section1() {
   // Función para obtener los datos desde la API
   const fetchData = async () => {
     try {
-      const response = await fetch("https://hack-project.onrender.com/startups/"); // Reemplaza con la URL de tu API
+      const response = await fetch(
+        "https://hack-project.onrender.com/startups/"
+      ); // Reemplaza con la URL de tu API
       const data = await response.json();
       setOriginalData(data); // Guardar los datos originales
       setFilteredData(data); // Inicialmente mostrar todos los datos
@@ -88,7 +90,7 @@ function Section1() {
   };
 
   if (loading) {
-    return <div>Cargando...</div>; // Mostrar estado de carga
+    return <div className="h-[650px]">Cargando...</div>; // Mostrar estado de carga
   }
 
   return (
