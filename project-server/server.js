@@ -65,6 +65,9 @@ app.post("/compare", async (req, res) => {
       return res.status(400).json({ error: "One or both startups not found" });
     }
 
+    console.log(data1);
+    console.log(data2);
+
     const prompt =
       "Context: WE ARE USING YOUR SERVCES TO DETERMINE WHICH STARTUP IS BETTER, YOU HAVE TO DECIDE, GIVE A BREIF EXPLANATION OF 'WHY IS BETTER', BUT ENTIRELY MAKING A CHOICE BETWEEN THE 2 STARTUPS, PLEASE REFFER TO THE STARTUPS BY THEIR NAME. THIS IS REALLY IMPORTANT: YOU HAVE TO RETURN THE STARTUP ID LIKE THIS ONLY IN THE FISRT LINE, AFTER THAT, NEVER WRITE THE ID AGAIN IN THE PARAGRAPH, JUST REFER TO THE STARTUP BY NAME. (EXAMPLE) -> {$1$} Rest of the text... End of context. Startup " +
       JSON.stringify(data1.name) +
