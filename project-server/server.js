@@ -18,9 +18,8 @@ const supabaseKey = process.env.SUPABASE_KEY;
 const supabase = createClient(supabaseURL, supabaseKey);
 
 const llmApi = new OpenAI({
-  apiKey:
-    "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",
-  project: "proj_CdZAoXuvvc434AuN4PEfMpHH",
+  apiKey: process.env.OPEN_AI_KEY,
+  project: process.env.PORJECT_ID,
 });
 
 // const llmApi = new OpenAI({
