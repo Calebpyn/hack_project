@@ -65,7 +65,7 @@ function App() {
             />
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/Startup_Page" element={<Startup_Page />} />
+              <Route path="/startup_page/:id" element={<Startup_Page />} />
               <Route path="/explore" element={<Explore />} />
               <Route path="/comp_home" element={<CompHome />} />
               <Route path="/comp_engine" element={<CompMain />} />

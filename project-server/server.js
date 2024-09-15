@@ -128,6 +128,22 @@ app.get("/employers/:id", async (req, res) => {
   }
 });
 
+app.get("/employers", async (req, res) => {
+  try {
+    const { data, error } = await supabase.from("employers").select("*");
+
+    if (error) {
+      throw error;
+    }
+
+    res.json(data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+
 app.listen(port, () => {
   console.info(`Listening to port: ${port}`);
 });

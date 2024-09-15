@@ -124,7 +124,7 @@ function Section1() {
           <div className="min-h-[200px] w-full py-5 flex flex-wrap gap-5">
             {filteredData.map((item) => (
               <InfoCard
-                key={item.id}
+                id={item.id}
                 name={item.name}
                 category={item.category}
                 created_at={item.created_at}
