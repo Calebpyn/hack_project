@@ -26,7 +26,7 @@ const Navbar: React.FC<NavbarProps> = ({ bgColor, bgBlur }) => {
         className="text-3xl font-gopherBold text-white select-none cursor-pointer"
         onClick={() => navigate("/")}
       >
-        InvestIQ
+        StartupSphere
       </span>
       <span
         className="flex flex-col gap-3 items-end cursor-pointer group tr"
