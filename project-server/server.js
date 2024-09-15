@@ -22,11 +22,6 @@ const llmApi = new OpenAI({
   project: process.env.PORJECT_ID,
 });
 
-// const llmApi = new OpenAI({
-//   baseURL: 'https://api.aimlapi.com',
-//   apiKey: '68e3c5a146b84657bafc88a45a2d0171 ',
-// });
-
 app.get("/", (req, res) => {
   res.json("Hello, World!");
 });
