@@ -51,4 +51,27 @@ app.post("/compare", async (req, res) => {
   });
 });
 
+app.get("/startups/:id", async (req, res) => {
+  try {
+    const { id } = req.params; // Obtener el ID de los parámetros de la URL
+    const { data, error } = await supabase
+      .from("startups")
+      .select("*")
+      .eq("id", id) // Filtrar por ID
+      .single(); // Esperar un solo resultado
+
+    if (error) {
+      throw error;
+    }
+
+    res.json(data);
+ 
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+
+
 app.listen(port, console.info(`Listening to port: ${port}`));
