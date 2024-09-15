@@ -51,9 +51,11 @@ function Section2() {
       <div className="w-full flex justify-end items-center p-10">
         <button
           className="text-white border-[1px] border-white flex justify-between items-center group w-[300px] px-5 py-2 rounded-full hover:w-[310px] tr"
-          onClick={() => navigate("/explore")}
+          onClick={() => {
+            navigate("/explore");
+          }}
         >
-          <span className="group-hover:scale-105 tr">Compare Start-Ups</span>
+          <span className="group-hover:scale-105 tr">Explore Start-Ups</span>
           <div className="w-[70px] flex justify-end items-center tr h-[2px] group-hover:w-[80px] bg-white">
             <MdOutlineArrowForwardIos className="text-[20px] -mr-2" />
           </div>
