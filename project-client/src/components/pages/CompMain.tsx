@@ -74,7 +74,7 @@ function CompMain() {
           } else if (number == dummies[right].id) {
             setResult(2);
           } else {
-            alert("GG PONGASE A CHAMBEAR");
+            alert("Something went wrong...");
           }
           setResultInfo(
             data.message.slice(0, startIndex) + data.message.slice(endIndex + 2)
