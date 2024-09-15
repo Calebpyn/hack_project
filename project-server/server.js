@@ -66,10 +66,14 @@ app.post("/compare", async (req, res) => {
     }
 
     const prompt =
-      "Context: WE ARE USING YOUR SERVCES TO DETERMINE WHICH STARTUP IS BETTER, YOU HAVE TO DECIDE, GIVE A BREIF EXPLANATION OF 'WHY IS BETTER', BUT ENTIRELY MAKING A CHOICE BETWEEN THE 2 STARTUPS. Startup 1 roi: " +
+      "Context: WE ARE USING YOUR SERVCES TO DETERMINE WHICH STARTUP IS BETTER, YOU HAVE TO DECIDE, GIVE A BREIF EXPLANATION OF 'WHY IS BETTER', BUT ENTIRELY MAKING A CHOICE BETWEEN THE 2 STARTUPS, THIS IS REALLY IMPORTANT: YOU HAVE TO RETURN THE STARTUP ID LIKE THIS (EXAMPLE) -> {$1$}. Startup 1 roi: " +
       JSON.stringify(data1.roi) +
       "market share: " +
       JSON.stringify(data1.market_share) +
+      "id: " +
+      JSON.stringify(data1.id) +
+      "name: " +
+      JSON.stringify(data1.name) +
       "number of investors: " +
       JSON.stringify(data1.num_investors) +
       "Money raised: " +
@@ -80,6 +84,10 @@ app.post("/compare", async (req, res) => {
       JSON.stringify(data2.roi) +
       "market share: " +
       JSON.stringify(data2.market_share) +
+      "id: " +
+      JSON.stringify(data1.id) +
+      "name: " +
+      JSON.stringify(data1.name) +
       "number of investors: " +
       JSON.stringify(data2.num_investors) +
       "Money raised: " +
