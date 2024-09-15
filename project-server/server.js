@@ -84,13 +84,13 @@ app.post("/compare", async (req, res) => {
       "/Minimum investment payment: " +
       JSON.stringify(data1.minimum_inv) +
       ". Startup " +
-      JSON.stringify(data1.name) +
+      JSON.stringify(data2.name) +
       ": roi: " +
       JSON.stringify(data2.roi) +
       "market share: " +
       JSON.stringify(data2.market_share) +
       "/id: " +
-      JSON.stringify(data1.id) +
+      JSON.stringify(data2.id) +
       "/number of investors: " +
       JSON.stringify(data2.num_investors) +
       "/Money raised: " +
