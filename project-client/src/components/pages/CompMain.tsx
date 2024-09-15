@@ -224,7 +224,7 @@ function CompMain() {
             {result == 2 ? (
               <div className="p-10 text-white flex flex-col gap-5">
                 <span className="font-gopherBold text-3xl">
-                  {dummies[left].name}
+                  {dummies[right].name}
                 </span>
 
                 <span className="font-hnLight">{resultInfo}</span>
