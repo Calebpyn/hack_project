@@ -1,12 +1,62 @@
 import { FaArrowRightLong } from "react-icons/fa6";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import logo from "../../assets/home/logo.svg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { CiCircleInfo } from "react-icons/ci";
+import { set } from "cypress/types/lodash";
 
 function CompMain() {
   const [result, setResult] = useState(0);
+  const [dummies, setDummies] = useState<any[]>([
+    {
+      id: 1,
+      created_at: "",
+      description: "",
+      roi: 0,
+      market_share: 0,
+      num_investors: 0,
+      raised: 0,
+      minimum_inv: 0,
+      rounds: 0,
+      problem: "",
+      value_proposition: "",
+      model: "",
+      research_develop: "",
+      link_logo: "",
+      link_banner: "",
+      category: "",
+      name: "",
+    },
+  ]);
+
+  const handleAllStartUps = async () => {
+    try {
+      const res = await fetch("https://hack-project.onrender.com/startups");
+      const data = await res.json();
+
+      setDummies(data);
+      console.log(data[0]);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleCompare = async () => {
+    try {
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    handleAllStartUps();
+  }, []);
+
+  const [left, setLeft] = useState(0);
+  const [right, setRight] = useState(0);
+
   return (
-    <div className="w-full h-[700px] p-10 flex justify-center items-end">
+    <div className="w-full h-[700px] p-10 flex justify-center items-end select-none">
       <div className="w-full h-full flex justify-between items-end">
         <div
           className={`tr h-full ${
@@ -19,10 +69,50 @@ function CompMain() {
               <FaArrowRightLong />
             </span>
           </span>
-          <div className="bg-black bg-opacity-40 backdrop-blur-lg w-full h-[85%] rounded-[10px]"></div>
+          <div className="bg-black bg-opacity-40 backdrop-blur-lg w-full h-[85%] rounded-[10px]">
+            {result == 1 ? (
+              <div></div>
+            ) : (
+              <div className="text-white flex flex-col gap-10 px-10 py-5 overflow-y-auto">
+                <span className="font-gopherBold text-xl">
+                  {dummies[left].name}
+                </span>
+                <span>{dummies[left].description}</span>
+                <span className="flex flex-col text-sm font-hnLight gap-2 max-h-[140px]">
+                  <span>Raised: ${dummies[left].raised}</span>
+                  <span>Investors: {dummies[left].num_investors}</span>
+                  <span>Min Investment: {dummies[left].minimum_inv}</span>
+                  <span>Market Share: {dummies[left].market_share}</span>
+                  <span>Roi: %{dummies[left].roi}</span>
+                </span>
+                <span className="w-full bg-white h-[1px]"></span>
+                <div className="h-[120px] w-full overflow-clip flex justify-center items-center">
+                  <img src={dummies[left].link_logo} />
+                </div>
+              </div>
+            )}
+          </div>
           <span className="flex justify-between w-full items-center p-5 text-white">
-            <FaArrowLeftLong className="hover:scale-110 tr cursor-pointer" />
-            <FaArrowRightLong className="hover:scale-110 tr cursor-pointer" />
+            <FaArrowLeftLong
+              className="hover:scale-110 tr cursor-pointer"
+              onClick={() => {
+                if (left == 0) {
+                  setLeft(dummies.length - 1);
+                } else {
+                  setLeft(left - 1);
+                }
+              }}
+            />
+            <FaArrowRightLong
+              className="hover:scale-110 tr cursor-pointer"
+              onClick={() => {
+                if (left == dummies.length - 1) {
+                  setLeft(0);
+                } else {
+                  setLeft(left + 1);
+                }
+              }}
+            />
           </span>
         </div>
         <div
@@ -35,7 +125,11 @@ function CompMain() {
           <div
             className="hover:scale-110 tr cursor-pointer text-white flex flex-col items-center gap-5"
             onClick={() => {
-              setResult(1);
+              if (result != 0) {
+                setResult(0);
+              } else {
+                setResult(1);
+              }
             }}
           >
             <img src={logo} />
@@ -43,7 +137,23 @@ function CompMain() {
               {result == 0 ? "Compare" : "Compare again"}
             </span>
           </div>
-          <div className={`tr ${result == 0 ? "hidden" : ""}`}></div>
+          <div className={`tr ${result == 0 ? "hidden" : "mt-5 text-white"}`}>
+            <span className="text-sm font-hnLight">Similar Companies</span>
+            <div className="p-3 overflow-y-auto flex flex-col h-[280px]">
+              {dummies.map((item, idx) => (
+                <div
+                  key={idx}
+                  className="flex flex-col font-hnLight bg-black bg-opacity-25 backdrop-blur-sm mb-5 p-2 rounded-lg relative text-sm w-full hover:scale-110 tr select-none cursor-pointer"
+                >
+                  <span className="fixed top-0 right-0 m-2">
+                    <CiCircleInfo />
+                  </span>
+                  <span className="">{item.name}</span>
+                  <span>Raised: ${item.raised}</span>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
         <div
           className={`tr h-full ${
@@ -56,10 +166,50 @@ function CompMain() {
               <FaArrowRightLong />
             </span>
           </span>
-          <div className="bg-black bg-opacity-40 backdrop-blur-lg w-full h-[85%] rounded-[10px]"></div>
+          <div className="bg-black bg-opacity-40 backdrop-blur-lg w-full h-[85%] rounded-[10px]">
+            {result == 1 ? (
+              <div></div>
+            ) : (
+              <div className="text-white flex flex-col gap-10 px-10 py-5 overflow-y-auto">
+                <span className="font-gopherBold text-xl">
+                  {dummies[right].name}
+                </span>
+                <span>{dummies[right].description}</span>
+                <span className="flex flex-col text-sm font-hnLight gap-2 max-h-[140px]">
+                  <span>Raised: ${dummies[right].raised}</span>
+                  <span>Investors: {dummies[right].num_investors}</span>
+                  <span>Min Investment: {dummies[right].minimum_inv}</span>
+                  <span>Market Share: {dummies[right].market_share}</span>
+                  <span>Roi: %{dummies[right].roi}</span>
+                </span>
+                <span className="w-full bg-white h-[1px]"></span>
+                <div className="h-[120px] w-full overflow-clip flex justify-center items-center">
+                  <img src={dummies[right].link_logo} />
+                </div>
+              </div>
+            )}
+          </div>
           <span className="flex justify-between w-full items-center p-5 text-white">
-            <FaArrowLeftLong className="hover:scale-110 tr cursor-pointer" />
-            <FaArrowRightLong className="hover:scale-110 tr cursor-pointer" />
+            <FaArrowLeftLong
+              className="hover:scale-110 tr cursor-pointer"
+              onClick={() => {
+                if (right == 0) {
+                  setRight(dummies.length - 1);
+                } else {
+                  setRight(right - 1);
+                }
+              }}
+            />
+            <FaArrowRightLong
+              className="hover:scale-110 tr cursor-pointer"
+              onClick={() => {
+                if (right == dummies.length - 1) {
+                  setRight(0);
+                } else {
+                  setRight(right + 1);
+                }
+              }}
+            />
           </span>
         </div>
       </div>

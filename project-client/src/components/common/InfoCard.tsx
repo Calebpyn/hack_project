@@ -25,7 +25,7 @@ const InfoCard: React.FC<InfoCardProps> = ({
           <span>Industry: {industry}</span>
           <span>Founded: {founded}</span>
           <span>Size: {size} Employees</span>
-          <span>Revenue: {revenue}</span>
+          <span>Revenue: ${revenue}</span>
         </span>
         <div
           style={{ backgroundImage: `url(${img})` }}
