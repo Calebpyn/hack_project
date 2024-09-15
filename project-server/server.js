@@ -6,12 +6,10 @@ const OpenAI = require("openai");
 require("dotenv").config();
 
 const app = express();
-
 const port = 4000;
 
 app.use(morgan("dev"));
 app.use(cors());
-
 app.use(express.json());
 
 const supabaseURL = process.env.SUPABASE_URL;
@@ -81,10 +79,55 @@ app.post("/compare", async (req, res) => {
     res.status(200).json({
       message: message
     });
+  }
+  catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+app.get("/startups/:id", async (req, res) => {
+  try {
+    const { id } = req.params; // Obtener el ID de los parámetros de la URL
+    const { data, error } = await supabase
+      .from("startups")
+      .select("*")
+      .eq("id", id) // Filtrar por ID
+      .single(); // Esperar un solo resultado
+
+    if (error) {
+      throw error;
+    }
+
+    res.json(data);
+ 
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
-app.listen(port, console.info(`Listening to port: ${port}`));
+app.get("/employers/:id", async (req, res) => {
+  try {
+    const { id } = req.params; // Obtener el ID de los parámetros de la URL
+    const { data, error } = await supabase
+      .from("employers") // Asegúrate de que esta tabla existe
+      .select("*")
+      .eq("id", id) // Filtrar por ID
+      .single(); // Esperar un solo resultado
+
+    if (error) {
+      throw error;
+    }
+
+    res.json(data);
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+app.listen(port, () => {
+  console.info(`Listening to port: ${port}`);
+});
