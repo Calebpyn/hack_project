@@ -18,9 +18,15 @@ const supabaseKey = process.env.SUPABASE_KEY;
 const supabase = createClient(supabaseURL, supabaseKey);
 
 const llmApi = new OpenAI({
-  baseURL: "https://api.aimlapi.com",
-  apiKey: "399117a6626e49639732bc3ffc61b991 ",
+  apiKey:
+    "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",
+  project: "proj_CdZAoXuvvc434AuN4PEfMpHH",
 });
+
+// const llmApi = new OpenAI({
+//   baseURL: 'https://api.aimlapi.com',
+//   apiKey: '68e3c5a146b84657bafc88a45a2d0171 ',
+// });
 
 app.get("/", (req, res) => {
   res.json("Hello, World!");
@@ -49,38 +55,71 @@ app.post("/compare", async (req, res) => {
     const { data: data1, error: error1 } = await supabase
       .from("startups")
       .select("roi, market_share, num_investors, raised, minimum_inv")
-      .eq("id", id1);
+      .eq("id", id1)
+      .single();
     const { data: data2, error: error2 } = await supabase
       .from("startups")
       .select("roi, market_share, num_investors, raised, minimum_inv")
-      .eq("id", id2);
+      .eq("id", id2)
+      .single();
 
     if (error1 || error2) {
       res.status(500).json({ error: "Internal Server Error" });
     }
 
-    
-    const result = await llmApi.chat.completions.create({
-      model: "meta-llama/Meta-Llama-3-8B-Instruct-Turbo",
+    if (!data1 || !data2) {
+      return res.status(400).json({ error: "One or both startups not found" });
+    }
+
+    const prompt =
+      "Startup 1 roi: " +
+      JSON.stringify(data1.roi) +
+      "market share: " +
+      JSON.stringify(data1.market_share) +
+      "number of investors: " +
+      JSON.stringify(data1.num_investors) +
+      "Money raised: " +
+      JSON.stringify(data1.raised) +
+      "Minimum investment payment: " +
+      JSON.stringify(data1.minimum_inv) +
+      ". Startup 2" +
+      JSON.stringify(data2.roi) +
+      "market share: " +
+      JSON.stringify(data2.market_share) +
+      "number of investors: " +
+      JSON.stringify(data2.num_investors) +
+      "Money raised: " +
+      JSON.stringify(data2.raised) +
+      "Minimum investment payment: " +
+      JSON.stringify(data2.minimum_inv) +
+      ". Which startup is better?";
+
+    result = await llmApi.chat.completions.create({
+      model: "gpt-3.5-turbo",
       messages: [
         {
           role: "system",
-          content: "You are an AI that compares startup data."
+          content: "You are an AI that compares startup data.",
         },
-        {
-          role: "user",
-          content: `Compare the following startups:`
-        }
-      ]
+        { role: "user", content: prompt },
+      ],
+      max_tokens: 350,
     });
 
     const message = result.choices[0].message.content;
+    console.log(message);
 
-    res.status(200).json({
-      message: message
-    });
+    return res.status(200).json({ message: message });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: error.message || "Internal Server Error" });
   }
-  catch (error) {
+});
+
+app.get("/llm", async (req, res) => {
+  try {
+    res.json(result.data.choices[0].message.content);
+  } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal Server Error" });
   }
@@ -100,7 +139,6 @@ app.get("/startups/:id", async (req, res) => {
     }
 
     res.json(data);
- 
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal Server Error" });
@@ -121,28 +159,11 @@ app.get("/employers/:id", async (req, res) => {
     }
 
     res.json(data);
-
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
-
-app.get("/employers", async (req, res) => {
-  try {
-    const { data, error } = await supabase.from("employers").select("*");
-
-    if (error) {
-      throw error;
-    }
-
-    res.json(data);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Internal Server Error" });
-  }
-});
-
 
 app.listen(port, () => {
   console.info(`Listening to port: ${port}`);
