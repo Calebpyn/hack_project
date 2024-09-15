@@ -40,10 +40,9 @@ const InfoCard: React.FC<InfoCardProps> = ({
   raised,
   num_investors,
   market_share,
-  description
-
+  description,
 }) => {
-  const formattedDate = format(new Date(created_at), 'dd MMM yyyy');
+  const formattedDate = format(new Date(created_at), "dd MMM yyyy");
   const navigate = useNavigate();
 
   return (
@@ -58,20 +57,18 @@ const InfoCard: React.FC<InfoCardProps> = ({
           <span className="text-sm">Created at: {formattedDate}</span>
           <span className="text-sm">ROI: {roi}</span>
           <span className="text-sm">Model: {model}</span>
-          <span className="text-sm">Value Proposition: {value_proposition}</span>    
+          <span className="text-sm">
+            Value Proposition: {value_proposition}
+          </span>
           <span className="text-sm">Raised: {raised} $</span>
-          <span 
-          className="w-full h-[100px] rounded-[10px] mt-3"
-        >
-          <img 
-            src={link_logo} 
-            alt="Company Logo" 
-            className="w-full h-full object-cover rounded-[10px]"
-          />
+          <span className="w-full h-[100px] object-contain rounded-[10px] mt-2">
+            <img
+              src={link_logo}
+              alt="Company Logo"
+              className="w-full h-full object-contain rounded-[10px]"
+            />
+          </span>
         </span>
-          
-        </span>
-        
       </div>
     </div>
   );
