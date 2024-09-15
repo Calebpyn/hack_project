@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { CiCircleInfo } from "react-icons/ci";
 import { set } from "cypress/types/lodash";
 import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function CompMain() {
   const [result, setResult] = useState(0);
@@ -71,6 +72,9 @@ function CompMain() {
 
   const navigate = useNavigate();
 
+  const navigate = useNavigate();
+
+  const navigate = useNavigate();
   return (
     <div className="w-full h-[700px] p-10 flex justify-center items-end select-none">
       <div className="w-full h-full flex justify-between items-end">
@@ -84,8 +88,14 @@ function CompMain() {
               className="text-white flex items-center gap-5 font-hnLight hover:scale-105 tr select-none cursor-pointer"
               onClick={() => navigate(`/startup_page/${dummies[left].id}`)}
             >
-              <span>More Info</span>
-              <FaArrowRightLong />
+              <button
+                onClick={() => {
+                  navigate(`/Startup_Page/${dummies[left].id}`);
+                }}
+              >
+                <span>More Info</span>
+                <FaArrowRightLong />
+              </button>
             </span>
           </span>
           <div className="bg-black bg-opacity-40 backdrop-blur-lg w-full h-[85%] rounded-[10px]">
@@ -187,8 +197,14 @@ function CompMain() {
               className="text-white flex items-center gap-5 font-hnLight hover:scale-105 tr select-none cursor-pointer"
               onClick={() => navigate(`/startup_page/${dummies[right].id}`)}
             >
-              <span>More Info</span>
-              <FaArrowRightLong />
+              <button
+                onClick={() => {
+                  navigate(`/Startup_Page/${dummies[right].id}`);
+                }}
+              >
+                <span>More Info</span>
+                <FaArrowRightLong />
+              </button>
             </span>
           </span>
           <div className="bg-black bg-opacity-40 backdrop-blur-lg w-full h-[85%] rounded-[10px]">
