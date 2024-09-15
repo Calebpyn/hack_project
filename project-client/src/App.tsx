@@ -3,6 +3,7 @@ import Home from "./components/pages/Home";
 import { AuroraBackground } from "./components/ui/aurora-background";
 import Navbar from "./components/common/Navbar";
 import { useEffect, useRef, useState } from "react";
+import Explore from "./components/pages/Explore";
 
 interface NavbarProps {
   bgColor: string;
@@ -60,6 +61,7 @@ function App() {
             />
             <Routes>
               <Route path="/" element={<Home />} />
+              <Route path="/explore" element={<Explore />} />
             </Routes>
           </div>
         }
