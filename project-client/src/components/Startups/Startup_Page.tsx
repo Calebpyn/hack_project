@@ -38,14 +38,13 @@ function Startup_Page({ startupId }: { startupId: number }) {
 
       {/* Franja negra con solo el título */}
       <div className="w-full py-5 flex items-center justify-center">
-        <div className="w-full p-10 flex justify-center items-center">
           <img
             src={startupData.link_logo}
-            alt="Company uber"
-            className="w-100 h-20"
+            alt="Company logo"
+            className="w-48 h-48 object-contain rounded-full shadow-lg"
           />
-        </div>
       </div>
+
 
       {/* Texto de misión fuera de la franja negra */}
       <div className="w-full py-5 flex items-center justify-center">
