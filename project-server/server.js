@@ -48,12 +48,12 @@ app.post("/compare", async (req, res) => {
 
     const { data: data1, error: error1 } = await supabase
       .from("startups")
-      .select("roi, market_share, num_investors, raised, minimum_inv")
+      .select("roi, market_share, num_investors, raised, minimum_inv, name, id")
       .eq("id", id1)
       .single();
     const { data: data2, error: error2 } = await supabase
       .from("startups")
-      .select("roi, market_share, num_investors, raised, minimum_inv")
+      .select("roi, market_share, num_investors, raised, minimum_inv, name, id")
       .eq("id", id2)
       .single();
 
@@ -66,36 +66,37 @@ app.post("/compare", async (req, res) => {
     }
 
     const prompt =
-      "Context: WE ARE USING YOUR SERVCES TO DETERMINE WHICH STARTUP IS BETTER, YOU HAVE TO DECIDE, GIVE A BREIF EXPLANATION OF 'WHY IS BETTER', BUT ENTIRELY MAKING A CHOICE BETWEEN THE 2 STARTUPS, PLEASE REFFER TO THE STARTUPS BY THEIR NAME. THIS IS REALLY IMPORTANT: YOU HAVE TO RETURN THE STARTUP ID LIKE THIS ONLY IN THE FISRT LINE, AFTER THAT, NEVER WRITE THE ID AGAIN IN THE PARAGRAPH, JUST REFER TO THE STARTUP BY NAME. (EXAMPLE) -> {$1$} Rest of the text... End of context. Startup 1 roi: " +
-      JSON.stringify(data1.roi) +
-      "market share: " +
-      JSON.stringify(data1.market_share) +
-      "id: " +
-      JSON.stringify(data1.id) +
-      "name: " +
+      "Context: WE ARE USING YOUR SERVCES TO DETERMINE WHICH STARTUP IS BETTER, YOU HAVE TO DECIDE, GIVE A BREIF EXPLANATION OF 'WHY IS BETTER', BUT ENTIRELY MAKING A CHOICE BETWEEN THE 2 STARTUPS, PLEASE REFFER TO THE STARTUPS BY THEIR NAME. THIS IS REALLY IMPORTANT: YOU HAVE TO RETURN THE STARTUP ID LIKE THIS ONLY IN THE FISRT LINE, AFTER THAT, NEVER WRITE THE ID AGAIN IN THE PARAGRAPH, JUST REFER TO THE STARTUP BY NAME. (EXAMPLE) -> {$1$} Rest of the text... End of context. Startup " +
       JSON.stringify(data1.name) +
-      "number of investors: " +
+      ": roi: " +
+      JSON.stringify(data1.roi) +
+      "/market share: " +
+      JSON.stringify(data1.market_share) +
+      "/id: " +
+      JSON.stringify(data1.id) +
+      "/number of investors: " +
       JSON.stringify(data1.num_investors) +
-      "Money raised: " +
+      "/Money raised: " +
       JSON.stringify(data1.raised) +
-      "Minimum investment payment: " +
+      "/Minimum investment payment: " +
       JSON.stringify(data1.minimum_inv) +
-      ". Startup 2" +
+      ". Startup " +
+      JSON.stringify(data1.name) +
+      ": roi: " +
       JSON.stringify(data2.roi) +
       "market share: " +
       JSON.stringify(data2.market_share) +
-      "id: " +
+      "/id: " +
       JSON.stringify(data1.id) +
-      "name: " +
-      JSON.stringify(data1.name) +
-      "number of investors: " +
+      "/number of investors: " +
       JSON.stringify(data2.num_investors) +
-      "Money raised: " +
+      "/Money raised: " +
       JSON.stringify(data2.raised) +
-      "Minimum investment payment: " +
+      "/Minimum investment payment: " +
       JSON.stringify(data2.minimum_inv) +
       ". Which startup is better?";
 
+    console.log(prompt);
     result = await llmApi.chat.completions.create({
       model: "gpt-3.5-turbo",
       messages: [
