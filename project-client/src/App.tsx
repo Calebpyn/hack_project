@@ -6,6 +6,8 @@ import { useEffect, useRef, useState } from "react";
 import Startup_Page from "./components/pages/Startup_Page";
 
 import Explore from "./components/pages/Explore";
+import CompHome from "./components/pages/CompHome";
+import CompMain from "./components/pages/CompMain";
 
 interface NavbarProps {
   bgColor: string;
@@ -65,6 +67,8 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/Startup_Page" element={<Startup_Page />} />
               <Route path="/explore" element={<Explore />} />
+              <Route path="/comp_home" element={<CompHome />} />
+              <Route path="/comp_engine" element={<CompMain />} />
             </Routes>
           </div>
         }

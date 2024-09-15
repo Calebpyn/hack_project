@@ -2,9 +2,14 @@ import logo from "../../assets/home/logo.svg";
 
 import { SlMagnifier } from "react-icons/sl";
 import InfoCard from "../common/InfoCard";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 
 function Section1() {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
   const [dummies, setDummies] = useState<any[]>([
     {
       companyName: "TechNova Solutions",
@@ -123,6 +128,8 @@ function Section1() {
     handleSearch(query);
   };
 
+  const [selectedFilters, setSelectedFilters] = useState<number[]>([]);
+
   return (
     <div className="w-full flex justify-center items-center p-10">
       <div className="w-full flex justify-between items-start">
@@ -165,9 +172,109 @@ function Section1() {
           </div>
         </div>
         <div className="w-[30%] h-[700px] flex items-center flex-col text-white">
-          <div className="w-[90%] h-full bg-black bg-opacity-35 backdrop-blur-lg rounded-[10px] p-5">
-            <span className="font-hnLight text-[12px]">Categories</span>
-            <div></div>
+          <div className="w-[90%] h-full bg-black bg-opacity-35 backdrop-blur-lg rounded-[10px] p-5 font-hnLight">
+            <span className="font-hnLight text-[12px] w-full justify-between flex">
+              <span>Categories</span>
+              <span
+                className="cursor-pointer hover:scale-105 tr"
+                onClick={() => setSelectedFilters([])}
+              >
+                Clear
+              </span>
+            </span>
+
+            <div className="flex flex-col p-3 gap-5">
+              <span className="flex items-center gap-5 justify-start">
+                <div
+                  className={`w-[20px] h-[20px] border-2 border-white rounded-sm tr cursor-pointer ${
+                    selectedFilters.includes(1) ? "bg-white" : ""
+                  }`}
+                  onClick={() => {
+                    setSelectedFilters((prevFilters) =>
+                      prevFilters.includes(1)
+                        ? prevFilters.filter((x) => x !== 1)
+                        : [...prevFilters, 1]
+                    );
+                  }}
+                ></div>
+                <span>Technology</span>
+              </span>
+              <span className="flex items-center gap-5 justify-start">
+                <div
+                  className={`w-[20px] h-[20px] border-2 border-white rounded-sm tr cursor-pointer ${
+                    selectedFilters.includes(2) ? "bg-white" : ""
+                  }`}
+                  onClick={() => {
+                    setSelectedFilters((prevFilters) =>
+                      prevFilters.includes(2)
+                        ? prevFilters.filter((x) => x !== 2)
+                        : [...prevFilters, 2]
+                    );
+                  }}
+                ></div>
+                <span>Healthcare</span>
+              </span>
+              <span className="flex items-center gap-5 justify-start">
+                <div
+                  className={`w-[20px] h-[20px] border-2 border-white rounded-sm tr cursor-pointer ${
+                    selectedFilters.includes(3) ? "bg-white" : ""
+                  }`}
+                  onClick={() => {
+                    setSelectedFilters((prevFilters) =>
+                      prevFilters.includes(3)
+                        ? prevFilters.filter((x) => x !== 3)
+                        : [...prevFilters, 3]
+                    );
+                  }}
+                ></div>
+                <span>Fintech</span>
+              </span>
+              <span className="flex items-center gap-5 justify-start">
+                <div
+                  className={`w-[20px] h-[20px] border-2 border-white rounded-sm tr cursor-pointer ${
+                    selectedFilters.includes(4) ? "bg-white" : ""
+                  }`}
+                  onClick={() => {
+                    setSelectedFilters((prevFilters) =>
+                      prevFilters.includes(4)
+                        ? prevFilters.filter((x) => x !== 4)
+                        : [...prevFilters, 4]
+                    );
+                  }}
+                ></div>
+                <span>E-Commerce</span>
+              </span>
+              <span className="flex items-center gap-5 justify-start">
+                <div
+                  className={`w-[20px] h-[20px] border-2 border-white rounded-sm tr cursor-pointer ${
+                    selectedFilters.includes(5) ? "bg-white" : ""
+                  }`}
+                  onClick={() => {
+                    setSelectedFilters((prevFilters) =>
+                      prevFilters.includes(5)
+                        ? prevFilters.filter((x) => x !== 5)
+                        : [...prevFilters, 5]
+                    );
+                  }}
+                ></div>
+                <span>Renewable Energy</span>
+              </span>
+              <span className="flex items-center gap-5 justify-start">
+                <div
+                  className={`w-[20px] h-[20px] border-2 border-white rounded-sm tr cursor-pointer ${
+                    selectedFilters.includes(6) ? "bg-white" : ""
+                  }`}
+                  onClick={() => {
+                    setSelectedFilters((prevFilters) =>
+                      prevFilters.includes(6)
+                        ? prevFilters.filter((x) => x !== 6)
+                        : [...prevFilters, 6]
+                    );
+                  }}
+                ></div>
+                <span>Education</span>
+              </span>
+            </div>
           </div>
         </div>
       </div>
