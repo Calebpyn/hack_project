@@ -43,7 +43,7 @@ function CompMain() {
   };
 
   const [left, setLeft] = useState(0);
-  const [right, setRight] = useState(0);
+  const [right, setRight] = useState(1);
 
   const [resultInfo, setResultInfo] = useState("");
 
