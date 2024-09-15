@@ -32,7 +32,7 @@ function Startup_Page({ startupId }: { startupId: number }) {
       if (window.paypal && paypalContainerRef.current) {
         window.paypal
           .Buttons({
-            createOrder: function (data: any, actions: any) {
+            createOrder: function (actions: any) {
               return actions.order.create({
                 purchase_units: [
                   {
@@ -43,7 +43,7 @@ function Startup_Page({ startupId }: { startupId: number }) {
                 ],
               });
             },
-            onApprove: function (data: any, actions: any) {
+            onApprove: function (actions: any) {
               return actions.order.capture().then(function (details: any) {
                 alert(
                   "Transaction completed by " + details.payer.name.given_name
