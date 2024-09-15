@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 function Startup_Page2({ startupId }: { startupId: number }) {
   const [startupData, setStartupData] = useState<any>(null); // Estado para almacenar los datos del startup

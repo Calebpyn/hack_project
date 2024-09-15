@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import uber from "../../assets/home/uber1.svg";
+import { useEffect, useState } from "react";
 
 function Startup_Page({ startupId }: { startupId: number }) {
   const [startupData, setStartupData] = useState<any>(null); // Estado para almacenar los datos del startup
@@ -33,7 +32,7 @@ function Startup_Page({ startupId }: { startupId: number }) {
       // Render PayPal buttons after the script is loaded
       if (window.paypal) {
         window.paypal.Buttons({
-          createOrder: function (data: any, actions: any) {
+          createOrder: function (actions: any) {
             return actions.order.create({
               purchase_units: [
                 {
@@ -44,7 +43,7 @@ function Startup_Page({ startupId }: { startupId: number }) {
               ],
             });
           },
-          onApprove: function (data: any, actions: any) {
+          onApprove: function (actions: any) {
             return actions.order.capture().then(function (details: any) {
               alert("Transaction completed by " + details.payer.name.given_name);
             });
